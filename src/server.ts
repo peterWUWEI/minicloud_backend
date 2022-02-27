@@ -1,7 +1,8 @@
 const express = require('express');
 import { Request, Response } from 'express';
-const { ConnectionOptions, createConnections } = require('typeorm');
-//import { authenticate } from './utils/authenticate';
+const { createConnection } = require('typeorm');
+import contentRouter from './routers/ContentRounter';
+const cors = require('cors');
 
 class Server { 
   private app;
@@ -19,12 +20,17 @@ class Server {
   }
   
   private routerConfig() {
+    this.app.use(cors({
+      origin: 'http://localhost:3000'
+    }));
     this.app.get('/healthcheck', async (req: Request, res: Response) => {
         return res.status(200).send();
-    })
+    });
+    this.app.use('/api/v1', contentRouter);
   }
   
-  private async dbConnect() { 
+  private async dbConnect() {
+    createConnection();
     console.log('DB connected');
   }
 
