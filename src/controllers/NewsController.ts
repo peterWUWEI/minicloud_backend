@@ -28,8 +28,8 @@ class NewsController {
             }
 
             const repo = getRepository(News);
-            const service = await repo.findOne({ id });
-            res.json(service);
+            const news = await repo.findOne({ id });
+            res.json(news);
         }  catch (err: any) {
             console.error(err);
             res.status(500).json({ error: 500, msg: err.message });

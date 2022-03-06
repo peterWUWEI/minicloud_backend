@@ -1,16 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-@Entity('investor_info')
-export class InvestorInfo {
+@Entity('contacts')
+export class Contact {
 
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    pdf_title: string; 
-
-    @Column()
-    pdf_file_url: string;
+    title: string;
 
     @Column('text')
     content: string;
