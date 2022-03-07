@@ -1,20 +1,32 @@
 version: '3.7'
 
 services:
+  mariadb:
+    image: mariadb
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQLDB_DATABASE: minicloud
+      MYSQL_PASSWORD: 123
+      MYSQL_PORT: 3306
   minicloud_backend:
     build:
       context: .
+
       dockerfile: Dockerfile
       target: base
     volumes:
       - ./src:/home/node/app/src
       - ./nodemon.json:/home/node/app/nodemon.json
     container_name: minicloud_backend
-    expose:
-      - '8080'
     ports:
-      - '8080:8080'
+      - 8080:8080
+    depends_on:
+      - mariadb
     command: npm run dev
-
 volumes:
-  db:
+  db-data: {}
