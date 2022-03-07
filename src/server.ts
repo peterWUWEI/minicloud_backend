@@ -2,7 +2,10 @@ const express = require('express');
 import { Request, Response } from 'express';
 const { createConnection } = require('typeorm');
 import contentRouter from './routers/ContentRounter';
-const cors = require('cors');
+import LoginController from './controllers/LoginController';
+import { authenticateJWT } from './utils/authenticateJWT'
+
+const bodyParser = require('body-parser');
 
 class Server { 
   private app;
@@ -10,8 +13,8 @@ class Server {
   constructor() {
     this.app = express();
     this.config();
-    this.routerConfig();
     this.dbConnect();
+    this.routerConfig();
   }
 
   private config() {
@@ -20,17 +23,17 @@ class Server {
   }
   
   private routerConfig() {
-    this.app.use(cors({
-      origin: 'http://localhost:3000'
-    }));
     this.app.get('/healthcheck', async (req: Request, res: Response) => {
         return res.status(200).send();
     });
-    this.app.use('/api/v1', contentRouter);
+
+    this.app.use('/login', LoginController);
+
+    this.app.use('/api/v1', authenticateJWT, contentRouter);
   }
   
   private async dbConnect() {
-    createConnection();
+    await createConnection();
     console.log('DB connected');
   }
 

@@ -6,14 +6,14 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     username: string; 
 
     @Column()
     password: string;
 
     @Column()
-    is_super_user: boolean;
+    role: string;
 
     @CreateDateColumn({ type: 'timestamp' })
     created_at: string;
