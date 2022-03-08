@@ -3,7 +3,8 @@ import { Request, Response } from 'express';
 const { createConnection } = require('typeorm');
 import contentRouter from './routers/ContentRounter';
 import LoginController from './controllers/LoginController';
-import { authenticateJWT } from './utils/authenticateJWT'
+import { authenticateJWT } from './utils/authenticateJWT';
+const cors = require('cors');
 
 const bodyParser = require('body-parser');
 
@@ -20,6 +21,7 @@ class Server {
   private config() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json({ limit: '1mb' })); // 100kb default
+    this.app.use(cors({ origin: '*' }));
   }
   
   private routerConfig() {
