@@ -21,7 +21,7 @@ class Server {
   private config() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json({ limit: '1mb' })); // 100kb default
-    this.app.use(cors({ origin: '*' }));
+    this.app.use(cors({ origin: ['http://localhost:3000', 'https://minicloud.co.jp', 'http://47.91.28.226'] }));
   }
   
   private routerConfig() {
