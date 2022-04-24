@@ -9,7 +9,7 @@ export class About {
     @Column()
     title: string;
 
-    @Column('text')
+    @Column('longtext')
     content: string;
 
     @CreateDateColumn({ type: 'timestamp' })
