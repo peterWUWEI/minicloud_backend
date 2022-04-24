@@ -1,9 +1,14 @@
 const express = require('express');
 import { Request, Response } from 'express';
 const { createConnection } = require('typeorm');
-import contentRouter from './routers/ContentRounter';
-import LoginController from './controllers/LoginController';
-import { authenticateJWT } from './utils/authenticateJWT';
+import serviceRouter from './routers/ServiceRouter';
+import newsRouter from './routers/NewsRouter';
+import investorInfoRouter from './routers/InvestorInfoRouter';
+import sustainabilityRouter from './routers/SustainabilityRouter';
+import contactRouter from './routers/ContactRouter';
+import aboutRouter from './routers/AboutRouter';
+import loginRouter from './routers/LoginRouter';
+
 const cors = require('cors');
 
 const bodyParser = require('body-parser');
@@ -20,7 +25,7 @@ class Server {
 
   private config() {
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(express.json({ limit: '1mb' })); // 100kb default
+    this.app.use(express.json({ limit: '10mb' })); // 100kb default
     this.app.use(cors({ origin: ['http://localhost:3000', 'https://minicloud.co.jp', 'http://47.91.28.226'] }));
   }
   
@@ -29,9 +34,15 @@ class Server {
         return res.status(200).send();
     });
 
-    this.app.use('/login', LoginController);
+    this.app.get
 
-    this.app.use('/api/v1', authenticateJWT, contentRouter);
+    this.app.use('/api/v1/services', serviceRouter);
+    this.app.use('/api/v1/news', newsRouter);
+    this.app.use('/api/v1/investorInfo', investorInfoRouter);
+    this.app.use('/api/v1/sustainability', sustainabilityRouter);
+    this.app.use('/api/v1/contacts', contactRouter);
+    this.app.use('/api/v1/about', aboutRouter);
+    this.app.use('/api/v1/login', loginRouter);
   }
   
   private async dbConnect() {
