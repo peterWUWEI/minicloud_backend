@@ -9,7 +9,7 @@ export class Service {
     @Column()
     service_title: string;
 
-    @Column('text')
+    @Column('longtext')
     service_content: string;
 
     @CreateDateColumn({ type: 'timestamp' })

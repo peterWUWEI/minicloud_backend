@@ -9,7 +9,7 @@ export class Sustainability {
     @Column()
     title: string; 
 
-    @Column('text')
+    @Column('longtext')
     content: string;
 
     @CreateDateColumn({ type: 'timestamp' })

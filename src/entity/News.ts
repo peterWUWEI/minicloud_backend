@@ -9,7 +9,7 @@ export class News {
     @Column()
     news_title: string; 
 
-    @Column('text')
+    @Column('longtext')
     news_content: string;
 
     @Column()

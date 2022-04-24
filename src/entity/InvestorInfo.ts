@@ -12,7 +12,7 @@ export class InvestorInfo {
     @Column()
     pdf_file_url: string;
 
-    @Column('text')
+    @Column('longtext')
     content: string;
 
     @CreateDateColumn({ type: 'timestamp' })
